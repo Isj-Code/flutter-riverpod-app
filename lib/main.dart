@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_app/config/config.dart';
+import 'package:riverpod_app/presentation/providers/providers.dart';
 
 void main() => runApp(
       const ProviderScope(
@@ -14,12 +15,13 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final bool darkmode = ref.watch(darkModeProvider);
     final GoRouter appRouter = ref.watch(appRouterProvider);
     return MaterialApp.router(
       title: 'Riverpod Providers',
       debugShowCheckedModeBanner: false,
       routerConfig: appRouter,
-      theme: AppTheme(isDarkmode: true).getTheme(),
+      theme: AppTheme(isDarkmode: darkmode).getTheme(),
     );
   }
 }
